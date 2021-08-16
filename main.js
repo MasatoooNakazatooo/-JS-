@@ -1,54 +1,63 @@
-const question = document.getElementById("question");
-const wrong = document.getElementById("wrong");
+// 問題文の読み込み
+import quize from "/text.js"
+console.log(quize);
 
-// 問題
-const words = [
-    "Let's play ---.（とにかくやってみよう。）",
-    "--- the speech,（スピーチに続いて）",
-    "Tickets are ---- online.（チケットはンラインで入手可能です。）"
-];
-// 解答
-const ans =[
-    "anyway",
-    "Following",
-    "available"
-];
 
 // 初期化処理
 function init(){
-    alert("good")
-    form.input[numb].value = ''
-    form.input[numb].focus()
+    ans.value = '';
+    // ans.focus();
 }
+// 問題の表示
+let numb = 0;
+const setup = () => {
+    // 問題の順番をセット
+    const $question = document.getElementById("question");
+    $question.innerHTML =quize[numb].question;
+};
+setup();
 
-// 問題をランダムにださず今回はパス
-// const rnd = Math.floor(Math.random() * words.length);
-
-// 問題の順番をセット
-const numb = 0;
 // 正解の合計数を計算
-const count = 0;
+let count = 0;
+
+
+// 送信ボタンがクリックされたらイベント発生
+const $ans  = document.getElementById("ans")
+const $result = document.getElementById("wrong");
+function buttonClick(){
+    
+    if ($ans.value === quize[numb].answer){
+        count ++;
+        numb ++;
+        $result.textContent = "正解！この調子で頑張って！";
+        init();
+    }else{
+        $result.textContent = "間違いだよ！もう一度頑張れ";
+        init();
+    };
+    if(numb < words.length){
+        setup();
+    }else{
+        window.alert('お疲れ様でした!');
+    }
+    
+    
+};
+
+
 
 // 送信ボタンを取得
-const btn = document.getElementById("submit");
+const $btn = document.getElementById("submit");
 
-// while(numb <= words.length){
-    
-    
-    // 問題の表示
-    question.textContent = words[numb];
-    
-    //     // 解答の取得
-    const form = document.getElementById("ans");
-    
-    // 送信ボタンがクリックされたらイベント発生
-    function buttonClick(){
-        if (form.value === ans[numb]){
-            count++
-            init();
-        }else{
-            wrong.textContent = "間違いだよ！ぼけ！かす！こらっ！ちゃんと勉強せんかい！";
-            setTimeout(function(){init()}, 1000)
-        }
+
+window.document.onkeydown = function(event){
+    if(event.key === "Enter" ){
+        buttonClick();
     }
-// }
+};
+
+    // window.document.onkeydown = buttonClick();
+
+
+    
+
