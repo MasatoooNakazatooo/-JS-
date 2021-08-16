@@ -1,6 +1,6 @@
 // 問題文の読み込み
-import quize from "/text.js"
-console.log(quize);
+import {quize} from "/text.js"
+
 
 
 // 初期化処理
@@ -25,7 +25,7 @@ let count = 0;
 const $ans  = document.getElementById("ans")
 const $result = document.getElementById("wrong");
 function buttonClick(){
-    
+    // 正誤判定
     if ($ans.value === quize[numb].answer){
         count ++;
         numb ++;
@@ -35,20 +35,20 @@ function buttonClick(){
         $result.textContent = "間違いだよ！もう一度頑張れ";
         init();
     };
-    if(numb < words.length){
+    // 次の処理
+    if(numb < quize.length){
         setup();
     }else{
         window.alert('お疲れ様でした!');
     }
-    
-    
 };
 
 
-
-// 送信ボタンを取得
-const $btn = document.getElementById("submit");
-
+const $click = document.getElementById('click').onclick = function(){
+    buttonClick();
+    // event.stopPropagation();
+};
+// $click.addEventListener("click", alert('aaaa'));  
 
 window.document.onkeydown = function(event){
     if(event.key === "Enter" ){

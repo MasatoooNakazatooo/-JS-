@@ -13,4 +13,4 @@ const quize = [
     }
 ];
 
-export default quize;
+export {quize};
